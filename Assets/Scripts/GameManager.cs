@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 120;
 
-        playerController.EnableInput();
         StartCoroutine("GameStart");
     }
 
@@ -74,6 +73,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(2);
 
+        playerController.EnableInput();
         startText.gameObject.SetActive(false);
         spawnManager.StartSpawner();
         isGameActive = true;

@@ -30,7 +30,6 @@ public class Counter : MonoBehaviour
         ChangeColor(Color.red, 0.1f / (Count + 1));
         audioSource.PlayOneShot(minusOne);
         UpdateCounter();
-        Debug.Log(gameObject.name);
     }
 
     void UpdateCounter()
