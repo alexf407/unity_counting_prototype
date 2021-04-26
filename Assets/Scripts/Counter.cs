@@ -1,29 +1,46 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class Counter : MonoBehaviour
 {
-    public Text CounterText;
+    [SerializeField] TextMeshProUGUI counterText;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip plusOne;
+    [SerializeField] AudioClip minusOne;
+    public int Count { get; private set; }
 
-    private int Count = 0;
-
-    private void Start()
+    void Start()
     {
         Count = 0;
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        Count += 1;
-        CounterText.text = "Count : " + Count;
+        Count++;
+        ChangeColor(Color.green, 0.1f / (Count + 1));
+        audioSource.PlayOneShot(plusOne);
+        UpdateCounter();
     }
 
-    private void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
-        Count -= 1;
-        CounterText.text = "Count : " + Count;
+        Count--;
+        ChangeColor(Color.red, 0.1f / (Count + 1));
+        audioSource.PlayOneShot(minusOne);
+        UpdateCounter();
+        Debug.Log(gameObject.name);
+    }
+
+    void UpdateCounter()
+    {
+        counterText.text = "In cart: " + Count;
+        ChangeColor(Color.white, 0.5f);
+    }
+
+    void ChangeColor(Color color, float duration)
+    {
+        counterText.CrossFadeColor(color, duration, false, false);
     }
 }
